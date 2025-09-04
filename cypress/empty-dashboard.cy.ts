@@ -12,3 +12,15 @@ describe('Dashboard in Empty State Validation', () => {
     cy.url().should('include', '/artigos/plano-premium');
   });
 });
+describe('Dashboard Responsiveness on Mobile', () => {
+  beforeEach(() => {
+    cy.viewport('iphone-x');
+    cy.visit('/');
+  });
+
+  it('should display a mobile-friendly layout', () => {
+    cy.get('[data-cy="desktop-navigation-bar"]').should('not.be.visible');
+    cy.get('[data-cy="mobile-menu-button"]').should('be.visible');
+  });
+});
+

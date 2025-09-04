@@ -10,7 +10,25 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "cypress": "^15.0.0",
-    "typescript": "^5.9.2"
+    "cypress": "^14.5.0",
+    "typescript": "^5.9.2",
+    "@cypress/grep": "^4.1.0",
+    "cypress-mochawesome-reporter": "^3.2.0",
+    "cypress-multi-reporters": "^2.0.5",
+    "mocha-junit-reporter": "^2.0.2",
+    "eslint": "^8.57.1",
+    "eslint-plugin-cypress": "^3.3.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^15.4.3",
+    "prettier": "^3.5.2",
+    "cypress-recurse": "^1.35.3",
+    "date-fns": "^4.1.0",
+    "pdf-parse": "^1.1.1"
+  },
+  "dependencies": {
+    "cypress-real-events": "^1.11.0",
+    "dotenv": "^16.0.1",
+    "unique-names-generator": "^4.7.1"
   }
 }
+
