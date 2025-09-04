@@ -1,3 +1,4 @@
+
 class AuthPage {
   getEmailField() {
     return cy.get('#email');
@@ -12,7 +13,13 @@ class AuthPage {
   }
 
   getSignupLink() {
-    return cy.element('signup-link');
+
+    return cy.contains('a', `Don't have an account?`);
+  }
+
+  getSignupButton() {
+   
+    return cy.element('signup-button');
   }
 
   getForgotPasswordLink() {
@@ -20,25 +27,38 @@ class AuthPage {
   }
 
   getErrorMessage() {
-    return cy.element('error-message');
+    return cy.contains('Failed to login. Please try again.');
   }
 
   typeEmail(email: string) {
-    this.getEmailField().type(email);
+    this.getEmailField().type(email, { delay: 50 });
   }
 
   typePassword(password: string) {
-    this.getPasswordField().type(password);
+    this.getPasswordField().type(password, { delay: 50 });
   }
 
   clickLoginButton() {
     this.getLoginButton().click();
   }
 
+  clickSignupLink() {
+    this.getSignupLink().click();
+  }
+
+  clickSignupButton() {
+    this.getSignupButton().click();
+  }
+
   login(email: string, password: string) {
     this.typeEmail(email);
     this.typePassword(password);
     this.clickLoginButton();
+  }
+  signUp(email: string, password: string) {
+    this.typeEmail(email);
+    this.typePassword(password);
+    this.clickSignupButton();
   }
 
   assertErrorMessage(message: string) {
