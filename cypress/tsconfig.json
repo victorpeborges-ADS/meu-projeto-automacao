@@ -1,14 +1,10 @@
 {
   "compilerOptions": {
-    // Diz ao TypeScript para incluir os tipos padrão do Cypress
     "types": ["cypress", "node"],
-    // Necessário para os arquivos de comando do Cypress, que não são módulos padrão
     "noEmit": true,
     "isolatedModules": false
   },
   "include": [
-    // Diz ao TypeScript para incluir todos os arquivos .ts
-    // dentro da pasta cypress e suas subpastas
     "**/*.ts"
   ]
 }
