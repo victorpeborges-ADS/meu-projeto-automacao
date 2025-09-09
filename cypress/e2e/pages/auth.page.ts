@@ -23,7 +23,8 @@ class AuthPage {
     return cy.contains('Failed to login. Please try again.');
   }
 
-  typeEmail(email: string) {
+typeEmail(email: string) {
+    cy.wait(500);
     this.getEmailField().type(email, { force: true });
   }
 
