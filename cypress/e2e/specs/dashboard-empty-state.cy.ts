@@ -49,6 +49,28 @@ const userEmail = `test.user.${randomNumber}@example.com`;
     cy.wait('@graphqlRequest', { timeout: 10000 });
     dashboardPage.verifySupplementalCardsVisible();
     
+it('should display auto articles and validate their links', () => {
+    dashboardPage.getAutoFilter().click();
+    cy.wait('@graphqlRequest');
+    
+    dashboardPage.getArticlesContainer().should('be.visible');
+    
+    dashboardPage.getArticlesContainer().find('a').each(($link) => {
+      cy.wrap($link).should('have.attr', 'href').and('not.be.empty');
+    });
+  });
+
+  it('should display others articles and validate their links', () => {
+    dashboardPage.getOthersFilter().click();
+    cy.wait('@graphqlRequest');
+
+    dashboardPage.getArticlesContainer().should('be.visible');
+    
+    dashboardPage.getArticlesContainer().find('a').each(($link) => {
+      cy.wrap($link).should('have.attr', 'href').and('not.be.empty');
+    });
+  });
+
     dashboardPage.getAutoFilter().should('be.visible').click();
     cy.wait('@graphqlRequest', { timeout: 10000 });
     dashboardPage.getArticlesContainer().should('be.visible');
