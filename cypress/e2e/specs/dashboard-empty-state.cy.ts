@@ -9,14 +9,13 @@ describe('Dashboard | Empty State for New User', () => {
     cy.intercept('POST', '**/graphql').as('graphqlRequest');
     
     cy.visit('/');
-    cy.wait(1000); 
+    cy.wait(1000);
     cy.get('.smallbutton').should('be.visible').and('be.enabled').click();
 
     authPage.clickSignupLink();
     
-  
     authPage.typeEmail(userEmail);
-    authPage.getEmailField().should('have.value', userEmail); 
+    authPage.getEmailField().should('have.value', userEmail);
 
     authPage.typePassword(userPassword);
     
@@ -34,5 +33,6 @@ describe('Dashboard | Empty State for New User', () => {
 
   it('should display correct articles when Health Coverage card is clicked', () => {
     dashboardPage.getHealthCard().click();
-  });
+   
+});
 });
