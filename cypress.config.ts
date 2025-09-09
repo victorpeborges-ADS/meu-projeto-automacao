@@ -15,7 +15,7 @@ export default defineConfig({
 
   // --- Otimizações de Performance (para suítes de testes grandes) ---
   experimentalMemoryManagement: true,
-  numTestsKeptInMemory: 20,
+  numTestsKeptInMemory: 10,
 
   // --- Configuração dos Relatórios ---
   reporter: 'cypress-multi-reporters',

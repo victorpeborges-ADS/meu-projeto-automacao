@@ -1,31 +1,33 @@
 class AuthPage {
   getEmailField() {
-    return cy.get('#email');
+    return cy.get("#email");
   }
 
   getPasswordField() {
-    return cy.get('#password');
+    return cy.get("#password");
   }
 
   getLoginButton() {
-    return cy.get('button[type="submit"]').contains('Log In');
+    return cy.get('button[type="submit"]').contains("Log In");
   }
 
   getSignupLink() {
-    return cy.contains('a', `Don't have an account?`);
+    return cy.contains("a", `Don't have an account?`);
   }
 
   getSignupButton() {
-    return cy.contains('button', 'Sign Up');
+    return cy.contains("button", "Sign Up");
   }
 
   getErrorMessage() {
-    return cy.contains('Failed to login. Please try again.');
+    return cy.contains("Failed to login. Please try again.");
   }
 
-typeEmail(email: string) {
-    cy.wait(500);
-    this.getEmailField().type(email, { force: true });
+  typeEmail(email: string) {
+    this.getEmailField()
+      .should("be.visible")
+      .and("be.enabled")
+      .type(email, { force: true });
   }
 
   typePassword(password: string) {
@@ -38,6 +40,7 @@ typeEmail(email: string) {
 
   clickSignupLink() {
     this.getSignupLink().click();
+    cy.url().should("include", "signup");
   }
 
   clickSignupButton() {
@@ -57,7 +60,7 @@ typeEmail(email: string) {
   }
 
   assertErrorMessage(message: string) {
-    this.getErrorMessage().should('be.visible').and('contain.text', message);
+    this.getErrorMessage().should("be.visible").and("contain.text", message);
   }
 }
 
