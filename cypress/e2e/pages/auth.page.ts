@@ -15,9 +15,10 @@ class AuthPage {
     return cy.contains("a", `Don't have an account?`);
   }
 
-  getSignupButton() {
-    return cy.contains("button", "Sign Up");
+ getSignupButton() {
+    return cy.get('[data-testid="signup-button"]');
   }
+  
 
   getErrorMessage() {
     return cy.contains("Failed to login. Please try again.");
