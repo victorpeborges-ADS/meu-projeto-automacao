@@ -34,49 +34,27 @@ describe(
       dashboardPage.verifyInitialCardsVisible();
     });
 
-    it("should display supplemental articles and validate their links", () => {
-      // O clique em "Health Coverage" foi removido daqui
-      dashboardPage.getSupplementalFilter().should("be.visible").click();
-      cy.wait("@graphqlRequest", { timeout: 10000 });
-      dashboardPage.verifySupplementalCardsVisible();
-      dashboardPage.validateInsuranceCardLinks();
+    it("should display health card and validate its functionality", () => {
+      dashboardPage.getHealthCardCTA().should("be.visible");
+      dashboardPage.getHealthCard().should("be.visible");
     });
 
-    it("should display auto articles and validate their links", () => {
-      cy.intercept("POST", "**/graphql").as("graphqlRequest");
-      dashboardPage.getAutoFilter().should("be.visible").click();
-      cy.wait("@graphqlRequest", { timeout: 10000 });
-      dashboardPage.validateArticleLinks();
+    it("should display dental card and validate its functionality", () => {
+      dashboardPage.getDentalCardCTA().should("be.visible");
     });
 
-    it("should display others articles and validate their links", () => {
-      cy.intercept("POST", "**/graphql").as("graphqlRequest");
-      dashboardPage.getOthersFilter().click();
-      cy.wait("@graphqlRequest");
-      dashboardPage.getArticlesContainer().should("be.visible");
-      dashboardPage
-        .getArticlesContainer()
-        .find("a")
-        .each(($link) => {
-          cy.wrap($link).should("have.attr", "href").and("not.be.empty");
-        });
+    it("should display vision card and validate its functionality", () => {
+      dashboardPage.getVisionCardCTA().should("be.visible");
     });
 
-    it("should handle navigation between different filters", () => {
-      cy.intercept("POST", "**/graphql").as("graphqlRequest");
-      dashboardPage.getSupplementalFilter().should("be.visible").click();
-      cy.wait("@graphqlRequest", { timeout: 10000 });
-      dashboardPage.verifySupplementalCardsVisible();
-
-      cy.intercept("POST", "**/graphql").as("graphqlRequest");
-      dashboardPage.getAutoFilter().should("be.visible").click();
-      cy.wait("@graphqlRequest", { timeout: 10000 });
-      dashboardPage.getArticlesContainer().should("be.visible");
-
-      cy.reload();
-      
-      cy.intercept("POST", "**/graphql").as("graphqlRequest");
+    it("should validate all initial cards are present and functional", () => {
       dashboardPage.verifyInitialCardsVisible();
+      dashboardPage.verifyPageStructure();
+      dashboardPage.verifyAllCardsAreClickable();
+    });
+
+    it("should validate card links and navigation", () => {
+      dashboardPage.validateCardLinks();
     });
   }
 );

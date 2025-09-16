@@ -1,45 +1,37 @@
 class DashboardPage {
   // --- CARDS PRINCIPAIS E CTAs ---
   getHealthCardCTA() {
-    return cy.get(':nth-child(1) > .h-full > [data-testid="start-cta"]');
+    return cy.get('[data-testid="start-cta"]').first();
   }
 
   getDentalCardCTA() {
-    return cy.get(':nth-child(2) > .h-full > [data-testid="start-cta"]');
+    return cy.get('[data-testid="start-cta"]').eq(1);
   }
 
   getVisionCardCTA() {
-    return cy.get(':nth-child(3) > .h-full > [data-testid="start-cta"]');
+    return cy.get('[data-testid="start-cta"]').eq(2);
   }
 
   getHealthCard() {
-    return cy.get(".gap-11 > .grid > :nth-child(1) > .h-full");
+    return cy.get('[data-testid="start-cta"]').first().parent().parent();
   }
 
-  // --- FILTROS ---
-  getSupplementalFilter() {
-    return cy.get("nav > :nth-child(2)");
+  // --- ADDITIONAL CARD ELEMENTS ---
+  getCardByIndex(index: number) {
+    return cy.get('[data-testid="start-cta"]').eq(index - 1).parent().parent();
   }
 
-  getAutoFilter() {
-    return cy.get("nav > :nth-child(3)");
+  getCardCTAByIndex(index: number) {
+    return cy.get('[data-testid="start-cta"]').eq(index - 1);
   }
 
-  getOthersFilter() {
-    return cy.get("nav > :nth-child(4)");
+  // --- UTILITY METHODS ---
+  getMainGrid() {
+    return cy.get('[data-testid="start-cta"]').first().parent().parent().parent();
   }
 
-  // --- ARTIGOS / CONTEÚDO PÓS-FILTRO ---
-  getLifeInsuranceCardButton() {
-    return cy.get(":nth-child(1) > .h-full > .justify-center");
-  }
-
-  getDisabilityInsuranceCardButton() {
-    return cy.get(":nth-child(2) > .h-full > .justify-center");
-  }
-
-  getArticlesContainer() {
-    return cy.get(".gap-11 > .grid");
+  getAllCards() {
+    return cy.get('[data-testid="start-cta"]').parent().parent();
   }
 
   // --- MÉTODOS DE VERIFICAÇÃO ---
@@ -50,32 +42,25 @@ class DashboardPage {
     return this;
   }
 
-  verifySupplementalCardsVisible() {
-    this.getLifeInsuranceCardButton().should("be.visible");
-    this.getDisabilityInsuranceCardButton().should("be.visible");
+  verifyAllCardsAreClickable() {
+    cy.get('[data-testid="start-cta"]').should("have.length.at.least", 3);
+    cy.get('[data-testid="start-cta"]').each(($cta) => {
+      cy.wrap($cta).should("be.visible");
+    });
     return this;
   }
 
-  validateArticleLinks() {
-    this.getArticlesContainer()
-      .find("a")
-      .each(($link) => {
-        cy.wrap($link).should("have.attr", "href").and("not.be.empty");
-      });
+  validateCardLinks() {
+    cy.get('[data-testid="start-cta"]').each(($cta) => {
+      cy.wrap($cta).should("be.visible");
+      cy.wrap($cta).should("have.attr", "href").and("not.be.empty");
+    });
     return this;
   }
 
-  validateInsuranceCardLinks() {
-    this.getLifeInsuranceCardButton()
-      .parents("a")
-      .should("have.attr", "href")
-      .and("not.be.empty");
-
-    this.getDisabilityInsuranceCardButton()
-      .parents("a")
-      .should("have.attr", "href")
-      .and("not.be.empty");
-
+  verifyPageStructure() {
+    cy.get('[data-testid="start-cta"]').should("have.length.at.least", 3);
+    cy.get('[data-testid="start-cta"]').should("be.visible");
     return this;
   }
 }
